@@ -22,14 +22,14 @@ public class NewsItemRecyclerAdapter extends RecyclerView.Adapter<NewsItemRecycl
         public TextView section;
         public TextView title;
 
-        public ViewHolder(View itemView){
+        public ViewHolder(View itemView) {
             super(itemView);
-            section = (TextView) itemView.findViewById(R.id.section);
-            title = (TextView) itemView.findViewById(R.id.title);
+            section = itemView.findViewById(R.id.section);
+            title = itemView.findViewById(R.id.title);
         }
     }
 
-    public NewsItemRecyclerAdapter(MainActivity context, List<NewsItem> newsItems){
+    public NewsItemRecyclerAdapter(MainActivity context, List<NewsItem> newsItems) {
         mNewsItems = newsItems;
         mContext = context;
     }
@@ -52,7 +52,7 @@ public class NewsItemRecyclerAdapter extends RecyclerView.Adapter<NewsItemRecycl
     }
 
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return mNewsItems.size();
     }
 }

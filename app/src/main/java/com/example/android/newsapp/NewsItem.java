@@ -25,10 +25,10 @@ public class NewsItem {
      * Public constructor to create a new {@link NewsItem} object
      *
      * @param section is the section of the news
-     * @param title is the title of the news
-     * @param url is the url of the news
+     * @param title   is the title of the news
+     * @param url     is the url of the news
      */
-    public NewsItem (String section, String title, String url){
+    public NewsItem(String section, String title, String url) {
         mSection = section;
         mTitle = title;
         mUrl = url;

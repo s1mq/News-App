@@ -8,9 +8,9 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,9 +27,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static final String LOG_TAG = MainActivity.class.getName();
 
     /**
-     *URL for news items data from the Guardian website
+     * URL for news items data from the Guardian website
      */
-    private static final String GUARDIAN_REQUEST_URL ="https://content.guardianapis.com/search?q=estonia";
+    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?q=estonia";
 
     /**
      * TextView that is displayed when the list is empty
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             mRecyclerView.setAdapter(mNewsItemRecyclerAdapter);
         } else {
             // Set empty state text to display "No news found"
-            mEmptyStateTextView.setText("No earthquakes found");
+            mEmptyStateTextView.setText(R.string.no_news_found);
         }
     }
 
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             loadingIndicator.setVisibility(View.GONE);
 
             // Update empty state with no connection error message
-            mEmptyStateTextView.setText("No internet connection");
+            mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
 
     }
