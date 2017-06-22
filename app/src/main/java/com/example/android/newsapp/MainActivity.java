@@ -2,14 +2,20 @@ package com.example.android.newsapp;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     /**
      *URL for news items data from the Guardian website
      */
-    private static final String GUARDIAN_REQUEST_URL ="https://content.guardianapis.com/search?q=estonia&api-key=test";
+    private static final String GUARDIAN_REQUEST_URL ="https://content.guardianapis.com/search?q=estonia";
 
     /**
      * TextView that is displayed when the list is empty
@@ -43,8 +49,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public Loader<List<NewsItem>> onCreateLoader(int i, Bundle bundle) {
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String listSize = sharedPreferences.getString(
+                getString(R.string.settings_newsitem_list_size_key),
+                getString(R.string.settings_newsitem_list_size_default));
+
+        String keyword = sharedPreferences.getString(
+                getString(R.string.settings_keyword_key),
+                getString(R.string.settings_keyword_default));
+
+        Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("q", keyword);
+        uriBuilder.appendQueryParameter("page-size", listSize);
+        uriBuilder.appendQueryParameter("api-key", "test");
+
         // Create a new loader for the given URL
-        return new NewsItemLoader(this, GUARDIAN_REQUEST_URL);
+        return new NewsItemLoader(this, uriBuilder.toString());
     }
 
     @Override
@@ -69,6 +91,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(Loader<List<NewsItem>> loader) {
 
         mNewsItemRecyclerAdapter = new NewsItemRecyclerAdapter(MainActivity.this, new ArrayList<NewsItem>());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">News App</string>
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">News Settings</string>
+
+    <string name="settings_newsitem_list_size_label">News Items (1 – 200)</string>
+    <string name="settings_newsitem_list_size_key" translatable="false">news_items</string>
+    <string name="settings_newsitem_list_size_default" translatable="false">10</string>
+
+    <string name="settings_keyword_label">Keyword</string>
+    <string name="settings_keyword_key" translatable="false">keyword</string>
+    <string name="settings_keyword_default" translatable="false">Estonia</string>
+
+
 </resources>
