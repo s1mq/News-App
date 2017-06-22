@@ -4,15 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:drawable/dialog_holo_light_frame"
+    android:backgroundTint="@color/colorListItemBackground"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="@dimen/news_item_padding">
 
 
     <TextView
         android:id="@+id/section"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:textColor="@color/sectionColor"
+        android:textSize="@dimen/section_text_size"
         android:textStyle="bold"
         tools:text="US News"
 
@@ -22,9 +24,9 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:layout_marginTop="@dimen/section_margin"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/title_text_size"
         tools:text="The Nixon-Kennedy presidential debates: from the archive, 1960" />
 
 </LinearLayout>

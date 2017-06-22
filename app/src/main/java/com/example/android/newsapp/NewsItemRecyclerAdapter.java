@@ -1,5 +1,7 @@
 package com.example.android.newsapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +50,20 @@ public class NewsItemRecyclerAdapter extends RecyclerView.Adapter<NewsItemRecycl
 
         holder.section.setText(currentNewsItem.getSection());
         holder.title.setText(currentNewsItem.getTitle());
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Convert the String URL into a URI object (to pass into the Intent constructor)
+                Uri bookUri = Uri.parse(currentNewsItem.getUrl());
+
+                // Create a new intent to view the book URI
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, bookUri);
+
+                // Send the intent to launch a new activity
+                mContext.startActivity(websiteIntent);
+            }
+        });
 
     }
 
