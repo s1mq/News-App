@@ -71,6 +71,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<NewsItem>> loader, List<NewsItem> newsItems) {
+
+        // Get a reference to the ConnectivityManager to check state of network connectivity
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Get details on the currently active default data network
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
         // Hide loading indicator because the data has been loaded
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
@@ -82,8 +89,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             mNewsItemRecyclerAdapter = new NewsItemRecyclerAdapter(MainActivity.this, newsItems);
             mRecyclerView.setAdapter(mNewsItemRecyclerAdapter);
         } else {
-            // Set empty state text to display "No news found"
-            mEmptyStateTextView.setText(R.string.no_news_found);
+            if (networkInfo != null && networkInfo.isConnected()) {
+
+                mRecyclerView.setVisibility(View.GONE);
+                mEmptyStateTextView.setText(R.string.no_news_found);
+
+            } else {
+
+                // Set empty state text to display "No news found"
+                mRecyclerView.setVisibility(View.GONE);
+                mEmptyStateTextView.setText(R.string.no_internet_connection);
+            }
+
         }
     }
 
